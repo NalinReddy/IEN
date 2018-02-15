@@ -1,0 +1,399 @@
+<html>
+<head>
+<title>IES</title>
+<link rel="stylesheet" type="text/css" href="/css/index.css">
+<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+</head>
+<div class="main">
+<nav>
+    <h1><a href="/">Indian Emergency Network</a></h1>
+    <div class="dropdown"><div class="beside"><span>Menu</span> <div><button class="dropbtn"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div></button></div>
+     <div id="myDropdown" class="dropdown-content">
+    <a href="/list/service">View As Device</a>
+    <a href="/list">Request</a>
+  </div>
+</div>
+</nav>
+<h1 class="emergency">Active Emergencies</h1>
+<a class="slide" href="/list">View all active emergencies (<%=data.length%>)</a>
+
+<div class="nestedMain">
+<form method="post" action="/">
+	<div class="container">
+     <h2>Emergency</h2>
+     <p onmouseover="dark(this)" onmouseout="light(this)">TYPE OF EMERGENCY</p>
+     <input onmouseover="bright(this)" onmouseout="low(this)" type="text" name="type" list="type">
+     <datalist id="type">
+       <option value="Emergency">Emergency</option>
+       <option value="Accident">Accident</option>
+       <option value="Fire">Fire</option>
+       <option value="Criminal acts">Criminal offence</option>
+     </datalist>
+     <p onmouseover="dark(this)" onmouseout="light(this)" class="name">NAME</p>
+     <input onmouseover="bright(this)" onmouseout="low(this)" type="text" id="nameId" name="personName" required>
+     <p onmouseover="dark(this)" onmouseout="light(this)" class="phoneNumber">PHONE NUMBER</p>
+     <input onmouseover="bright(this)" onmouseout="low(this)" type="text" id="phoneNumberId" name="contactNumber" placeholder="+91-" 
+     required pattern="[1-9]{1}[0-9]{9}" oninvalid="setCustomValidity('Enter a valid 10 digit mobile number')">
+     <p onmouseover="dark(this)" onmouseout="light(this)" class="address">ADRESS</p>
+     <input onmouseover="bright(this)" onmouseout="low(this)" type="text" id="addressId" name="address" required>
+     <p onmouseover="dark(this)" onmouseout="light(this)" class="landMark">LANDMARK</p>
+     <input onmouseover="bright(this)" onmouseout="low(this)" type="text" id="landMarkId" name="landmark">
+     <p onmouseover="dark(this)" onmouseout="light(this)" class="pin">PINCODE</p>
+     <input onmouseover="bright(this)" onmouseout="low(this)" type="text" id="pinId" name="pincode" placeholder="Ex. 506009" 
+     required maxlength="6" ">
+     <p onmouseover="dark(this)" onmouseout="light(this)" >SEND ALERT TO</p>
+     <input type="checkbox" name="ambulance"><label>Ambulance</label>
+     <input type="checkbox" name="police"><label>Police</label>
+     <input type="checkbox" name="fire"><label>Fire Station</label>
+   	</div>
+     <button type="submit">START EMERGENCY</button>
+</form>
+<div class="cards">
+<% if(data.length != 0){%>
+<% for(let i=0;i<data.length;i++) { %>
+<div class="activeEmergency">
+	<div class="top">
+		<p>STARTED AT <span class="startTime"><%=data[i].time%></span></p>
+		<span class="timer"></span>
+		<form class="btnForm" action="/list/<%=data[i]._id%>?_method=DELETE" method="post">
+		<button>Cancel</button>
+		</form>
+	</div>
+	<div class="middle">
+	<div class="inline">	
+	<h3><%=data[i].name%></h3>
+	<img src="/images/loc.PNG">
+	</div> 
+	<span>+91- <%=data[i].phoneNumber%></span><br>
+	<span><%=data[i].address%>,</span><br>
+	<span><%=data[i].landmark%></span>
+	<p><b>Emergency </b><%=data[i].emergency%></p>
+    </div>
+	<div id="" class="<%=data[i]._id%> bottom">
+		<div class="nest">
+		<div class="loading"></div>
+		<span>Request pending...</span>
+		<div class="icons"></div>
+	    </div>
+	    <div class="append">	
+		<div  class="top select">
+		<p>ACCEPTED AT 1:00AM</p>
+		<span class="dist"></span>
+		<span class="setIcon"></span>
+		<span class="timer">00:05:42 sec</span>
+	</div>
+		
+	</div>
+	</div>
+</div>
+  <%if(i=3) {%>
+      <% break; %>
+  	<%}%>
+<%}%>
+	<%}%>
+	<div class="activeEmergency">
+	<div class="top">
+		<p>STARTED AT 1:00AM</p>
+		<span class="timer">00:05:42 sec</span>
+		<button>Cancel</button>
+	</div>
+	<div class="middle">
+	<div class="inline">	
+	<h3>Anderson Williams</h3>
+	<img src="/images/loc.PNG">
+	</div> 
+	<span>+91-7867564367</span><br>
+	<span>address 1,</span><br>
+	<span>address</span>
+	<p><b>Emergency </b> Accident</p>
+    </div>
+	<div class="bottom">
+		<div class="inFlex">
+			<div class="loading"></div>
+		<div class="nest">
+		<span>Request pending...</span>
+		<div class="icons"><i class="fas fa-ambulance"></i><i class="fas fa-car"></i><i class="fas fa-truck"></i></div>
+		</div>
+		</div>
+		<div class="top hide">
+		<p>ACCEPTED AT 1:00AM</p>
+		<div id="dist">
+		<span class="timer">00:05:42 sec</span>
+	</div>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+<div class="mapFlex">
+    <div id="map"></div>
+    <div id="output"></div>
+</div>
+<script type="text/javascript">
+// 	$('#nameId,#phoneNumber,.name,.phoneNumber').mouseover(function(){
+// 	$('#nameId').css("border-bottom","1px solid black")
+// 	$('#phoneNumberId').css("border-bottom","1px solid black")
+// 	$('.phoneNumber').css("color","black")
+// 	$('.name').css("color","black")
+// })
+// 	$('#nameId, #phoneNumberId').mouseleave(function(){
+// 		$('#nameId').css("border-bottom","")
+// 		$('.name').css("color","")
+// 		$('#phoneNumberId').css("border-bottom","")
+// 			$('.phoneNumber').css("color","")
+// 	})
+function dark(x){
+x.style.color = "black";
+}
+function light(x){
+	x.style.color="";
+}
+function bright(x){
+	x.style.border="0px 0px 1px 0px";
+	x.style.borderColor="black"
+}
+function low(x){
+	x.style.border="";
+	x.style.borderColor=""
+}
+</script>
+<script type="text/javascript">
+	function startTimer(display) {
+    var minutes = 0;
+    var seconds = 0;
+    var hours=0;
+    setInterval(function () {
+    	hours   = parseInt(hours/60, 10);
+        minutes = parseInt(minutes / 60, 10);
+        seconds = parseInt(seconds % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent =hours+ ":" +minutes + ":" + seconds+" sec";
+
+       ++hours;
+       ++minutes;
+       ++seconds;
+    }, 1000);
+}
+
+window.onload = function () {
+	var x = document.querySelectorAll(".timer");
+var i;
+for (i = 0; i < x.length; i++) {
+	display =x[i];
+    startTimer(display);
+}
+};
+</script>
+<script type="text/javascript">
+	$('nav button').click(function(){
+    $("#myDropdown").toggleClass("show");
+
+	})
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+<script>
+      function initMap() {
+        var bounds = new google.maps.LatLngBounds;
+        var markersArray = [];
+
+        var origin1 = 'kukatpally, hyderabad';
+        var origin2 = 'uppal, hyderabad';
+        var destinationA = '<%=data[0].address%>';
+        var destinationB = '<%=data[0].landmark%>';
+
+        var destinationIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=D|FF0000|000000';
+        var originIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 55.53, lng: 9.4},
+          zoom: 10
+        });
+        var geocoder = new google.maps.Geocoder;
+
+        var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: [origin1, origin2],
+          destinations: [destinationA, destinationB],
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, function(response, status) {
+          if (status !== 'OK') {
+            alert('Error was: ' + status);
+          } else {
+            var originList = response.originAddresses;
+            var destinationList = response.destinationAddresses;
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            deleteMarkers(markersArray);
+
+            var showGeocodedAddressOnMap = function(asDestination) {
+              var icon = asDestination ? destinationIcon : originIcon;
+              return function(results, status) {
+                if (status === 'OK') {
+                  map.fitBounds(bounds.extend(results[0].geometry.location));
+                  markersArray.push(new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: icon
+                  }));
+                } else {
+                  console.log('Geocode was not successful due to: ' + status);
+                }
+              };
+            };
+
+            for (var i = 0; i < originList.length; i++) {
+              var results = response.rows[i].elements;
+              geocoder.geocode({'address': originList[i]},
+                  showGeocodedAddressOnMap(false));
+              for (var j = 0; j < results.length; j++) {
+                geocoder.geocode({'address': destinationList[j]},
+                    showGeocodedAddressOnMap(true));
+                document.querySelector('.dist').innerHTML = results[j].distance.text + ' in ' +
+                    results[j].duration.text + '<br>';
+
+              }
+            }
+          }
+        });
+      }
+
+      function deleteMarkers(markersArray) {
+        for (var i = 0; i < markersArray.length; i++) {
+          markersArray[i].setMap(null);
+        }
+        markersArray = [];
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMxTXclJR37JdQtbYcRoJWAmixloyyMcQ&callback=initMap">
+    </script>
+<script type="text/javascript">
+	$("select").click(function(){
+    $(this).toggleClass("update");
+});
+	$("input").click(function(){
+    $(this).toggleClass("update");
+});
+
+
+
+</script>
+<script type="text/javascript">
+	<%data.forEach(function(element){%>
+		switch('<%=element.ambulance%>'){
+			case 'on':
+		$(".<%=element._id%> .icons").append('<i class="fas fa-ambulance"></i>'); 
+		if(!$(".<%=element._id%> .select").css("display")=="block"){
+		$('.<%=element._id%> .select').css("display","none");
+	}
+		break;
+		case 'off':
+        $('.<%=element._id%> .select').css("display","block");
+$(".<%=element._id%> .append").append('<div  class="top select"><div class="right"><p>ACCEPTED AT 1:00AM</p><span class="setIcon"><i class="fas fa-ambulance"></i></span></div><span class="dist"></span></div>'); 
+            checkNappend('police','fire');
+         break;
+		}
+		switch('<%=element.police%>'){
+			case 'on':
+		$(".<%=element._id%> .icons").append('<i class="fas fa-car"></i>'); 
+		if(!$(".<%=element._id%> .select").css("display")=="block"){
+
+		$('.<%=element._id%> .select').css("display","none");
+	}
+	    break;
+	    case 'off':
+		$('.<%=element._id%> .select').css("display","block");
+$(".<%=element._id%> .append").append('<div  class="top select"><div class="right"><p>ACCEPTED AT 1:00AM</p><span class="setIcon"><i class="fas fa-car"></i></span></div><span class="dist"></span></div>'); 
+        checkNappend('ambulance','fire');
+
+	     break;
+		}
+
+	    switch('<%=element.fire%>'){
+	    	case 'on':
+		$(".<%=element._id%> .icons").append('<i class="fas fa-truck"></i>'); 
+				if(!$(".<%=element._id%> .select").css("display")=="block"){
+
+		$('.<%=element._id%> .select').css("display","none");
+	}
+	        break;
+	        case 'off':
+$(".<%=element._id%> .append").append('<div  class="top select"><div class="right"><p>ACCEPTED AT 1:00AM</p><span class="setIcon"><i class="fas fa-truck"></i></span></div><span class="dist"></span></div></div>'); 
+     		$('.<%=element._id%> .select').css("display","block");
+     		 checkNappend('police','ambulance');
+     		break;
+	    }
+
+	    function checkNappend(a,b){
+                 
+                 if((a=='ambulance'||b=='ambulance')&&('<%=element.ambulance%>'=='on')){
+                 	if(a=='ambulance'){
+                 		var icon = '<i class="fas fa-ambulance"></i>';
+                 	 	$(".<%=element._id%> .icons").append(icon);
+                 	}else{
+                 		var icon ='<i class="fas fa-ambulance"></i>';
+                  	 	$(".<%=element._id%> .icons").append(icon);
+ 
+                 	}
+                 }
+                 if((a=='police'||b=='police')&&('<%=element.police%>'=='on')){
+                 	if(a=='police'){
+                 		var icon = '<i class="fas fa-car"></i>';
+                 	 	$(".<%=element._id%> .icons").append(icon);
+                 	}else{
+                 		var icon ='<i class="fas fa-car"></i>';
+                  	 	$(".<%=element._id%> .icons").append(icon);
+ 
+                 	}
+                 }
+                 	if((a=='fire'||b=='fire')&&('<%=element.fire%>'=='on')){
+                 	if(a=='fire'){
+                 		var icon = '<i class="fas fa-truck"></i>';
+                 	 	$(".<%=element._id%> .icons").append(icon);
+                 	}else{
+                 		var icon ='<i class="fas fa-truck"></i>';
+                  	 	$(".<%=element._id%> .icons").append(icon);
+ 
+                 	}
+
+	    }
+	}
+	
+<% })%>
+</script>
+<script type="text/javascript">
+	<%data.forEach(element=>{%>
+      if('<%=element.fire%>'=='off'&&'<%=element.police%>'=='off'&&'<%=element.ambulance%>'=="off"){
+		$('.<%=element._id%> .nest').css("display","none");
+	}
+	<%})%>
+</script>
+
+</div>
+
+</html>

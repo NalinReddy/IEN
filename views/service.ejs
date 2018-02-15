@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IEN</title>
+	<link rel="stylesheet" type="text/css" href="/css/service.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/js/location.js"></script>
+</head>
+<body>
+<div class="header">
+	<a href="/"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
+	<h1>Active Emergencies(<%=data.length%>)</h1>
+</div>
+<div class="main">
+	<%data.forEach(info =>{%>
+<div class="activeEmergency">
+	<div class="top">
+		<p>STARTED AT <%=info.time%></p>
+		<span class="timer">00:05:42 sec</span>
+	</div>
+	<div class="middle">
+	<div class="inline">	
+	<h3><%=info.name%></h3>
+	<img src="/images/loc.PNG">
+	</div> 
+	<span>+91- <%=info.phoneNumber%></span><br>
+	<span><%=info.address%>,</span><br>
+	<span><%=info.landmark%></span>
+	<p><b>Emergency </b><%=info.emergency%></p>
+    </div>
+	<div class="bottom">
+		<form id="<%=info._id%>" class="btnForm" action="/list/service/<%=info._id%>" method="post">
+	    <input type="hidden" name="latitude" id="latitude" value="" />
+	    <input type="hidden" name="longitude" id="longitute" value="" />
+
+		<button name="ambulance" value="off">Accept request</button>
+		<div class="icons"><i class="fas fa-ambulance"></i></div>
+	    </form>	
+	<form id="<%=info._id%>" class="btnForm" action="/list/service/<%=info._id%>" method="post">
+		<button name="police" value="off">Accept request</button>
+		<div class="icons"><i class="fas fa-car"></i></div>
+	</form>
+	 <form id="<%=info._id%>" class="btnForm off" action="/list/service/<%=info._id%>" method="post">
+		<button name="fire" value="off">Accept request</button>
+		<div class="icons"><i class="fas fa-truck"></i></div>
+	</form>
+	</div>
+</div>
+
+	
+	
+	<script type="text/javascript">
+           if('<%=info.ambulance%>' == 'off'){
+           	$('#<%=info._id%>').css("display","none");
+           	$('.fa-ambulance,button').css("display","none")
+           }
+           if('<%=info.police%>' == 'off'){
+           	$('#<%=info._id%>').css("display","none");
+           	$('.fa-car,button').css("display","none")
+           }
+           if('<%=info.fire%>' == 'off'){
+           	$('#<%=info._id%>').css("display","none");
+            $('.fa-truck,button').css("display","none")
+           }		
+	</script>
+	<%})%>
+	<script type="text/javascript">
+	function startTimer(display) {
+    var minutes = 0;
+    var seconds = 0;
+    var hours=0;
+    setInterval(function () {
+    	hours   = parseInt(hours/60, 10);
+        minutes = parseInt(minutes / 60, 10);
+        seconds = parseInt(seconds % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent =hours+ ":" +minutes + ":" + seconds+" sec";
+
+       ++hours;
+       ++minutes;
+       ++seconds;
+    }, 1000);
+}
+
+window.onload = function () {
+	var x = document.querySelectorAll(".timer");
+var i;
+for (i = 0; i < x.length; i++) {
+	display =x[i];
+    startTimer(display);
+}
+};
+</script>
+<div id="map"></div>
+	</div>
+	<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4mjVI_m7uHX_oY2hpD-ZDk5LjAyeRhNg&callback=initMap">
+</script>
+</body>
+</html>

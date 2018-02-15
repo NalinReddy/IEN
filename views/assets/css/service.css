@@ -1,0 +1,135 @@
+html{
+    	font-family: 'Quicksand', sans-serif;
+    	background-color: rgb(237,241,244);
+}
+.header{
+	display:flex;
+	flex-direction: column;
+	margin-left: 10%;
+}
+.header a{
+	text-decoration: none;
+}
+
+/*main*/
+.main {
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/*active emergency lists*/
+.activeEmergency{
+	background-color:white;
+	width:auto;
+	height:70%;
+	margin:10px;
+	padding:0px;
+	display: flex;
+	flex-direction: column;
+	/*flex-wrap: wrap;*/
+/*    flex-grow: 1;
+*/	border:1px solid #ccc;
+	box-shadow: 2px 2px 2px #ccc;
+	border-radius: 6px;	
+	padding: 1px;
+	font-size: 13px;
+}
+
+/*emergency card top*/
+.activeEmergency .top{
+	width:100%;
+	background-color: rgb(247,247,247);
+	border-bottom: 2px solid #ccc;
+	border-radius: 6px;	
+	padding:15px;
+	box-sizing:border-box;
+	/*padding-right:0px;*/
+}
+.activeEmergency .top p{
+	margin-top: 0px;
+	
+}
+.activeEmergency .top span{
+	background-color: rgb(215,225,237);
+}
+
+
+/*emergency card middle*/
+.activeEmergency .middle {
+	background-color: white;
+	padding: 8px;
+	box-sizing: border-box;
+}
+/*emergency card middle loc img*/
+.activeEmergency .middle .inline{
+	display: flex;
+	justify-content: space-between;
+}
+.activeEmergency .middle .inline img{
+	width:40px;
+	height:30px;
+	margin-top: 10px;
+}
+
+/*emergency card bottom*/
+.activeEmergency .bottom{
+	background-color: white;
+	border-top: 2px solid #ccc;
+	display: flex;
+	justify-content: space-around;
+	padding: 8px;
+	box-sizing: border-box;
+}
+.activeEmergency .bottom span{
+  margin-top: 10px;
+}
+.activeEmergency .bottom .loading{
+	width:25px;
+	height:25px;
+	margin-top: 5px;
+	background-color:white;
+	border-top: 5px solid #698994;
+	border-bottom: 5px solid #ccc;
+	border-left: 5px solid #ccc;
+	border-right: 5px solid #ccc;
+	border-radius: 40px;
+	-webkit-animation:rotate 1s linear infinite;
+-ms-animation:rotate 1s linear infinite;
+}
+/*Loading Icon*/
+@-webkit-keyframes rotate{
+0%{-webkit-transform:rotate(0deg)}
+100%{-webkit-transform:rotate(360deg)}
+}
+@-ms-keyframes rotate{
+0%{-ms-transform:rotate(0deg)}
+100%{-ms-transform:rotate(360deg)}
+}
+/*FontAwesome ICONs*/
+.activeEmergency .bottom .icons{
+   padding:5px;
+}
+.svg-inline--fa{
+	padding:5px;
+}
+.activeEmergency .bottom button {
+	background-color: white;
+	padding:6px 10px;
+	color:green;
+	border: 1px solid green;
+	border-radius: 2px;
+	outline: none;
+	font-weight: bold;
+}
+.activeEmergency .bottom form{
+
+}
+
+/*map*/
+#map {
+  height: 50%%;
+  width:50%;
+}
+
+/*event classes*/
